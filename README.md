@@ -2,7 +2,7 @@
 
 ![PyPI](https://img.shields.io/pypi/v/eiscp-micropython)
 
-This is an implementation of the Onkyo EISCP protocol for running on Microcontrollers utilizing Micropython.
+This is an implementation of the Onkyo EISCP protocol for running on Microcontrollers utilizing [MicroPython](http://www.micropython.org/).
 
 It is a heavily stripped down version of the [Onkyo EISCP](https://github.com/miracle2k/onkyo-eiscp) library and supports
 sending commands to connected devices in the same IP-Network.
