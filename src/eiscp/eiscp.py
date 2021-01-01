@@ -27,10 +27,11 @@ class eISCP:
     ONKYO_PORT = 60128
     CONNECT_TIMEOUT = 5
 
-    def __init__(self, host, port=60128):
+    def __init__(self, host: str, port: int = 60128, debug: bool = False):
         self.host = host
         self.port = port
         self._info = None
+        self.debug = debug
 
         self.command_socket = None
 
@@ -124,7 +125,7 @@ class eISCP:
             return None
 
         header = eISCPPacket.parse_header(header_bytes)
-        print("Found ISCP header {}".format(header))
+        self.dprint("Found ISCP header {}".format(header))
         body = b""
         start = time.ticks_ms()
         while len(body) < header.data_size:
@@ -134,7 +135,7 @@ class eISCP:
             elif len(body) < header.data_size:
                 await uasyncio.sleep_ms(1)
         message = ISCPMessage.parse(body.decode())
-        print("Identified ISCP response: {}".format(message))
+        self.dprint("Identified ISCP response: {}".format(message))
         return message
 
     async def raw(self, iscp_message):
@@ -178,3 +179,7 @@ class eISCP:
     async def power_off(self) -> "Optional[Tuple[str, str]]":
         """Turn the receiver power off."""
         return await self.command("PWR", "00")
+
+    def dprint(self, item: str) -> None:
+        if self.debug:
+            print(item)

@@ -1,15 +1,17 @@
 import os
 import sys
-import sdist_upip
 from typing import Dict, List
 
 from setuptools import find_namespace_packages, setup
+
+import sdist_upip
 
 sys.path.append(os.path.join(os.path.dirname(__file__), "src"))
 
 CURRENT_PYTHON = sys.version_info[:2]
 REQUIRED_PYTHON = (3, 6)
 EGG_NAME = "eiscp-micropython"
+
 
 def list_packages(source_directory: str = "src") -> List[str]:
     packages = list(find_namespace_packages(source_directory, exclude="venv"))
@@ -24,10 +26,7 @@ def get_package_dir() -> Dict[str, str]:
 
 version = "0.9.1"
 requirements = []
-test_requirements = [
-    "twine",
-    "adafruit-ampy>=1.0.0"
-]
+test_requirements = ["twine", "adafruit-ampy>=1.0.0"]
 
 if os.path.isfile("README.md"):
     with open("README.md", "r") as handle:
@@ -65,9 +64,8 @@ setup(
         "Topic :: Software Development :: Libraries :: Python Modules",
         "Topic :: Multimedia",
         "License :: OSI Approved :: MIT License",
-
     ],
     extras_require={},
     project_urls={"GitHub": "https://github.com/cbrand/eiscp-micropython"},
-    cmdclass={'sdist': sdist_upip.sdist}
+    cmdclass={"sdist": sdist_upip.sdist},
 )
