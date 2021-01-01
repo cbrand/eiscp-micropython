@@ -24,7 +24,7 @@ def get_package_dir() -> Dict[str, str]:
     return {"": "src"}
 
 
-version = "0.9.1"
+version = "0.9.2"
 requirements = []
 test_requirements = ["twine", "adafruit-ampy>=1.0.0"]
 

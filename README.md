@@ -16,10 +16,12 @@ As an example turning on the first device in the network and changing the audio 
 
 ```python
 import uasyncio
-import machine
+import network
 from eiscp import discover
 
-wifi = machine.WLAN(machine.)
+wifi = network.WLAN(network.STA_IF)
+wifi.active(True)
+wifi.connect('SSID', 'PW')
 
 loop = uasyncio.get_event_loop()
 
