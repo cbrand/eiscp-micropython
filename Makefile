@@ -3,7 +3,7 @@
 build-and-upload: build upload
 
 build:
-	python setup.py sdist
+	cd src && python setup.py sdist
 
 upload:
-	twine upload dist/*.tar.gz
+	twine upload src/dist/*.tar.gz

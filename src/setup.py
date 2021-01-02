@@ -1,6 +1,6 @@
 import os
 import sys
-from typing import Dict, List
+from typing import List
 
 from setuptools import find_namespace_packages, setup
 
@@ -13,18 +13,12 @@ REQUIRED_PYTHON = (3, 6)
 EGG_NAME = "eiscp-micropython"
 
 
-def list_packages(source_directory: str = "src") -> List[str]:
+def list_packages(source_directory: str = ".") -> List[str]:
     packages = list(find_namespace_packages(source_directory, exclude="venv"))
     return packages
 
 
-def get_package_dir() -> Dict[str, str]:
-    if not os.path.isdir("src"):
-        return {}
-    return {"": "src"}
-
-
-version = "0.9.2"
+version = "0.9.3"
 requirements = []
 test_requirements = ["twine", "adafruit-ampy>=1.0.0"]
 
@@ -47,7 +41,6 @@ setup(
     long_description_content_type="text/markdown",
     license="MIT",
     packages=list_packages(),
-    package_dir=get_package_dir(),
     include_package_data=True,
     install_requires=requirements,
     zip_safe=True,
