@@ -3,6 +3,7 @@
 build-and-upload: build upload
 
 build:
+	rm -rf src/dist/*.tar.gz*
 	cd src && python setup.py sdist
 
 upload:
