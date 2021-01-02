@@ -116,7 +116,7 @@ class eISCP:
 
         start = time.ticks_ms()
         header_bytes = b""
-        while start + timeout * 1000 > time.ticks_ms() and len(header_bytes) < 16:
+        while start + int(timeout * 1000) > time.ticks_ms() and len(header_bytes) < 16:
             header_bytes += await self.command_socket.read(16 - len(header_bytes))
             if len(header_bytes) < 16:
                 await uasyncio.sleep_ms(1)
