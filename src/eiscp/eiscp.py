@@ -148,7 +148,7 @@ class eISCP:
         self.dprint("Identified ISCP response: {}".format(message))
         return message
 
-    async def raw(self, iscp_message):
+    async def raw(self, iscp_message, expect_response: bool = True):
         """Send a low-level ISCP message, like ``MVL50``, and wait
         for a response.
         While the protocol is designed to acknowledge each message with
@@ -167,16 +167,19 @@ class eISCP:
             # response to our sent command later.
             pass
         await self.send(iscp_message)
-        return await filter_for_message(self.get, iscp_message)
+        if expect_response:
+            return await filter_for_message(self.get, iscp_message)
+        else:
+            return None
 
-    async def command(self, command: str, argument: str) -> "Optional[Tuple[str, str]]":
+    async def command(self, command: str, argument: str, expect_response: bool = True) -> "Optional[Tuple[str, str]]":
         """Send a high-level command to the receiver, return the
         receiver's response formatted has a command.
         This is basically a helper that combines :meth:`raw`,
         :func:`command_to_iscp` and :func:`iscp_to_command`.
         """
         iscp_message = command_to_iscp(command, argument)
-        response = await self.raw(iscp_message)
+        response = await self.raw(iscp_message, expect_response)
         if response:
             return iscp_to_command(response)
 
