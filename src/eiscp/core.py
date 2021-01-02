@@ -154,7 +154,7 @@ async def filter_for_message(getter_func: "Callable[[], Optional[str]]", msg: st
         # however, the interval needed to be at least 200ms before
         # I managed to see any response, and only after 300ms
         # reproducably, so use a generous timeout.
-        if time.time() - start > 5.0:
+        if time.time() - start > 1.5:
             raise ValueError("Timeout waiting for response.")
 
 

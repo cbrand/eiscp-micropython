@@ -33,6 +33,7 @@ class eISCP:
         self._info = None
         self.debug = debug
 
+        self.async_command_socket = None
         self.command_socket = None
 
     @property
@@ -82,7 +83,8 @@ class eISCP:
             command_socket.settimeout(self.CONNECT_TIMEOUT)
             command_socket.connect((self.host, self.port))
             command_socket.setblocking(0)
-            self.command_socket = uasyncio.StreamWriter(command_socket)
+            self.command_socket = command_socket
+            self.async_command_socket = uasyncio.StreamWriter(command_socket)
 
     def disconnect(self) -> None:
         try:
@@ -105,8 +107,8 @@ class eISCP:
         or use :meth:`raw` to send a message and waiting for one.
         """
         self._ensure_socket_connected()
-        self.command_socket.write(command_to_packet(iscp_message))
-        await self.command_socket.drain()
+        self.async_command_socket.write(command_to_packet(iscp_message))
+        await self.async_command_socket.drain()
 
     async def get(self, timeout: int = 0.2) -> bytes:
         """Return the next message sent by the receiver, or, after
@@ -117,8 +119,14 @@ class eISCP:
         start = time.ticks_ms()
         header_bytes = b""
         while start + int(timeout * 1000) > time.ticks_ms() and len(header_bytes) < 16:
-            header_bytes += await self.command_socket.read(16 - len(header_bytes))
+            self.dprint("Reading from socket for header")
+            result_payload = self.command_socket.read(16 - len(header_bytes))
+            if result_payload:
+                header_bytes += result_payload
+                self.dprint("Got {} header bytes".format(len(header_bytes)))
+
             if len(header_bytes) < 16:
+                self.dprint("Complete header not retrieved, waiting for buffer to keep up")
                 await uasyncio.sleep_ms(1)
 
         if len(header_bytes) < 16:
