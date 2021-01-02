@@ -137,7 +137,7 @@ class eISCP:
         body = b""
         start = time.ticks_ms()
         while len(body) < header.data_size:
-            body += await self.command_socket.read(header.data_size - len(body))
+            body += self.command_socket.read(header.data_size - len(body))
             if start + timeout * 1000 < time.ticks_ms():
                 return None
             elif len(body) < header.data_size:
