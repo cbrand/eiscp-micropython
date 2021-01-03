@@ -170,6 +170,9 @@ class eISCP:
         if expect_response:
             return await filter_for_message(self.get, iscp_message)
         else:
+            while await self.get(False):
+                # Drain anything in the buffer
+                pass
             return None
 
     async def command(self, command: str, argument: str, expect_response: bool = True) -> "Optional[Tuple[str, str]]":
