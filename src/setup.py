@@ -18,12 +18,13 @@ def list_packages(source_directory: str = ".") -> List[str]:
     return packages
 
 
-version = "0.9.9"
+version = "0.9.11"
 requirements = []
 test_requirements = ["twine", "adafruit-ampy>=1.0.0"]
 
-if os.path.isfile("README.md"):
-    with open("README.md", "r") as handle:
+readme_path = os.path.join(os.path.dirname(__file__), "README.md")
+if os.path.isfile(readme_path):
+    with open(readme_path, "r") as handle:
         long_description = handle.read()
 else:
     long_description = ""
