@@ -1,6 +1,6 @@
 # EISCP Micropython #
 
-[![PyPI](https://img.shields.io/pypi/v/eiscp-micropython)](https://pypi.org/project/eiscp-micropython/)
+[![PyPI](https://img.shields.io/pypi/v/eiscp-micropython) ![MIT Licensed](https://img.shields.io/pypi/l/eiscp-micropython)](https://pypi.org/project/eiscp-micropython/)
 
 This is an implementation of the Onkyo EISCP protocol for running on Microcontrollers utilizing [MicroPython](http://www.micropython.org/).
 
