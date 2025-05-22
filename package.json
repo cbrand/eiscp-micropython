@@ -1,0 +1,10 @@
+{
+  "urls": [
+    ["eiscp/__init__.py", "github:cbrand/eiscp-micropython/src/eiscp/__init__.py"],
+    ["eiscp/core.py", "github:cbrand/eiscp-micropython/src/eiscp/core.py"],
+    ["eiscp/discovery.py", "github:cbrand/eiscp-micropython/src/eiscp/discovery.py"],
+    ["eiscp/eiscp.py", "github:cbrand/eiscp-micropython/src/eiscp/eiscp.py"]
+  ],
+  "version": "1.0.0",
+  "deps": []
+}
